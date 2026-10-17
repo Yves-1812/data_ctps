@@ -1,0 +1,429 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Survei Info Peluang</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --page:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink2:#52514e; --ink3:#6b6a65;
+  --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --s1:#2a78d6; --hover:#1c5cab; --wash:rgba(42,120,214,.08);
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#0d0d0d; --surface:#1a1a19;
+    --ink:#f0efec; --ink2:#c3c2b7; --ink3:#a3a299;
+    --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+    --s1:#3987e5; --hover:#5598e7; --wash:rgba(57,135,229,.12);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0d0d0d; --surface:#1a1a19;
+  --ink:#f0efec; --ink2:#c3c2b7; --ink3:#a3a299;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --s1:#3987e5; --hover:#5598e7; --wash:rgba(57,135,229,.12);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--page);color:var(--ink);font:400 14px/1.5 var(--font);
+  padding-block:28px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap}
+.eyebrow{margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+h1{margin:0;font-size:clamp(26px,4.6vw,38px);line-height:1.1;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.sub{margin:8px 0 0;color:var(--ink2);font-size:15px;max-width:60ch}
+.pill{font-size:12.5px;font-weight:500;color:var(--ink2);border:1px solid var(--grid);border-radius:999px;padding:4px 12px;white-space:nowrap}
+
+.summary{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:stretch}
+.hero{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:8px 0}
+.hero-fig{font-size:clamp(64px,11vw,96px);line-height:.95;font-weight:700;letter-spacing:-.04em}
+.hero-txt{margin:0;color:var(--ink2);font-size:15px;max-width:34ch}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--grid);border:1px solid var(--ring);border-radius:12px;overflow:hidden}
+.tile{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kl{font-size:12.5px;color:var(--ink2)}
+.kv{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.kn{font-size:12.5px;color:var(--ink3)}
+@media (max-width:760px){.summary{grid-template-columns:minmax(0,1fr)}}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:16px}
+.card{min-width:0;background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.wide{grid-column:1/-1}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+h2{margin:0;font-size:15px;font-weight:600;line-height:1.3;text-wrap:balance}
+.csub{margin:2px 0 0;font-size:12.5px;color:var(--ink2)}
+.seg{display:inline-flex;border:1px solid var(--grid);border-radius:8px;overflow:hidden;flex:none}
+.seg button{font:500 12px var(--font);padding:4px 10px;border:0;background:transparent;color:var(--ink2);cursor:pointer}
+.seg button+button{border-left:1px solid var(--grid)}
+.seg button[aria-pressed="true"]{background:var(--wash);color:var(--ink);font-weight:600}
+
+.sh{margin:8px 0 2px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.sh:first-child{margin-top:0}
+.hbars{display:flex;flex-direction:column;gap:2px}
+.hrow{display:grid;grid-template-columns:minmax(104px,38%) minmax(0,1fr);align-items:center;gap:12px;min-height:34px;padding:2px 8px;margin:0 -8px;border-radius:6px}
+.hrow:hover,.hrow:focus-visible{background:var(--wash)}
+.hl{font-size:13px;line-height:1.3}
+.track{position:relative;height:16px;margin-right:84px;border-left:1px solid var(--axis)}
+.bar{position:absolute;left:0;top:0;bottom:0;background:var(--s1);border-radius:0 4px 4px 0}
+.hrow:hover .bar,.hrow:focus-visible .bar{background:var(--hover)}
+.val{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:12.5px}
+.val b{font-weight:600}
+.val span{color:var(--ink3)}
+
+.cwrap{display:grid;grid-template-columns:34px minmax(0,1fr);grid-template-rows:190px auto;column-gap:8px;row-gap:6px}
+.yax{position:relative}
+.yax span{position:absolute;right:0;transform:translateY(50%);font-size:11.5px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.cplot{position:relative}
+.gl{position:absolute;left:0;right:0;height:0;border-top:1px solid var(--grid)}
+.gl.z{border-top-color:var(--axis)}
+.ccols{position:absolute;inset:0;display:grid}
+.ccol{position:relative;border-radius:6px}
+.ccol:hover,.ccol:focus-visible{background:var(--wash)}
+.cbar{position:absolute;bottom:0;left:50%;width:24px;margin-left:-12px;background:var(--s1);border-radius:4px 4px 0 0}
+.ccol:hover .cbar,.ccol:focus-visible .cbar{background:var(--hover)}
+.cval{position:absolute;left:0;right:0;text-align:center;font-size:12.5px;font-weight:600}
+.xax{display:grid}
+.xl{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
+.xt{font-size:12.5px;font-weight:500;line-height:1.3}
+.xn{font-size:11.5px;color:var(--ink3)}
+
+table{border-collapse:collapse;width:100%}
+th,td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--grid);font-size:13px}
+th{font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+table.big{min-width:1180px}
+td.long{min-width:210px}
+td.nm{white-space:nowrap;font-weight:500}
+.mcell{display:flex;align-items:center;gap:10px;min-width:170px}
+.meter{flex:1;height:6px;background:var(--wash);border-radius:3px;min-width:60px}
+.meter i{display:block;height:100%;background:var(--s1);border-radius:3px}
+.mcell span{font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.dim{color:var(--ink3)}
+
+.notes{font-size:12.5px;color:var(--ink2);display:flex;flex-direction:column;gap:6px;max-width:80ch}
+.notes p{margin:0}
+
+.tip{position:fixed;z-index:30;left:0;top:0;pointer-events:none;background:var(--ink);color:var(--surface);padding:8px 10px;border-radius:8px;font-size:12.5px;line-height:1.35;max-width:260px}
+.tip-v{font-weight:700;font-size:14px}
+.tip-l{display:flex;align-items:center;gap:6px;opacity:.85}
+.tip-l::before{content:"";width:10px;height:2px;background:var(--s1);flex:none}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <p class="eyebrow">Hasil survei · 17 Okt 2026</p>
+      <h1>Survei Info Peluang</h1>
+      <p class="sub">Pernah ketinggalan info penting? Jawaban dari 30 mahasiswa di 8 kampus.</p>
+    </div>
+    <span class="pill">Nama responden disensor</span>
+  </header>
+
+  <section class="summary" aria-label="Ringkasan hasil">
+    <div class="hero">
+      <div class="hero-fig" id="heroFig"></div>
+      <p class="hero-txt" id="heroTxt"></p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="grid" id="grid" aria-label="Grafik hasil survei"></section>
+
+  <section class="card">
+    <div class="chead">
+      <div>
+        <h2>Data responden</h2>
+        <p class="csub">30 jawaban dengan nama disensor. Penulisan kampus, semester, dan typo sudah dirapikan.</p>
+      </div>
+    </div>
+    <div class="scroll" id="respTable"></div>
+  </section>
+
+  <footer class="notes">
+    <p></p>
+    <p></p>
+    <p></p>
+  </footer>
+</div>
+
+<div class="tip" id="tip" hidden role="status"></div>
+
+<script>
+(function(){
+var D = {"stats": {"N": 30, "kampus": [{"label": "Polinema", "n": 12, "pct": 40.0}, {"label": "Universitas Brawijaya", "n": 9, "pct": 30.0}, {"label": "ITS", "n": 2, "pct": 6.7}, {"label": "PENS", "n": 2, "pct": 6.7}, {"label": "Universitas Negeri Malang", "n": 2, "pct": 6.7}, {"label": "Binus University", "n": 1, "pct": 3.3}, {"label": "Telkom University", "n": 1, "pct": 3.3}, {"label": "UMM", "n": 1, "pct": 3.3}], "jenis": [{"label": "Negeri", "n": 27, "pct": 90.0}, {"label": "Swasta", "n": 3, "pct": 10.0}], "semester": [{"label": "1", "n": 25, "pct": 83.3}, {"label": "3", "n": 4, "pct": 13.3}, {"label": "7", "n": 1, "pct": 3.3}], "sumber": [{"label": "Grup WA kelas", "n": 18, "pct": 60.0}, {"label": "Teman", "n": 17, "pct": 56.7}, {"label": "Grup WA angkatan", "n": 17, "pct": 56.7}, {"label": "Instagram jurusan", "n": 15, "pct": 50.0}, {"label": "Website kampus", "n": 11, "pct": 36.7}, {"label": "Grup WA himpunan/UKM", "n": 8, "pct": 26.7}, {"label": "Dosen", "n": 3, "pct": 10.0}, {"label": "Instagram umum/lomba", "n": 2, "pct": 6.7}, {"label": "Lainnya", "n": 2, "pct": 6.7}], "frekuensi": [{"label": "1", "n": 5, "pct": 16.7}, {"label": "2", "n": 6, "pct": 20.0}, {"label": "3", "n": 7, "pct": 23.3}, {"label": "4", "n": 8, "pct": 26.7}, {"label": "5", "n": 4, "pct": 13.3}], "info": [{"label": "Lomba", "n": 9, "pct": 30.0}, {"label": "Deadline tugas", "n": 8, "pct": 26.7}, {"label": "Beasiswa", "n": 6, "pct": 20.0}, {"label": "Perubahan jadwal", "n": 5, "pct": 16.7}, {"label": "Kegiatan organisasi", "n": 2, "pct": 6.7}], "penyebab": [{"label": "Chat tenggelam", "n": 21, "pct": 70.0}, {"label": "Info telat datang", "n": 17, "pct": 56.7}, {"label": "Terlalu banyak grup", "n": 17, "pct": 56.7}, {"label": "Info tersebar di banyak platform", "n": 14, "pct": 46.7}, {"label": "Notifikasi dimatikan", "n": 6, "pct": 20.0}, {"label": "Info tidak jelas", "n": 6, "pct": 20.0}, {"label": "Salah lihat deadline", "n": 1, "pct": 3.3}], "menit": [{"label": "< 5 menit", "n": 8, "pct": 26.7}, {"label": "5–15 menit", "n": 16, "pct": 53.3}, {"label": "15–30 menit", "n": 5, "pct": 16.7}, {"label": "> 30 menit", "n": 1, "pct": 3.3}], "kesulitan": [{"label": "1", "n": 5, "pct": 16.7}, {"label": "2", "n": 5, "pct": 16.7}, {"label": "3", "n": 12, "pct": 40.0}, {"label": "4", "n": 5, "pct": 16.7}, {"label": "5", "n": 3, "pct": 10.0}], "avg_frekuensi": 3.0, "avg_kesulitan": 2.87, "pct_frek_tinggi": 40.0, "pct_kesulitan_tinggi": 26.7, "pct_frek_sedang_tinggi": 63.3, "pct_kesulitan_sedang_tinggi": 66.7, "per_kampus": [{"kampus": "Polinema", "n": 12, "avg_frekuensi": 2.67, "avg_kesulitan": 3.0}, {"kampus": "Universitas Brawijaya", "n": 9, "avg_frekuensi": 3.44, "avg_kesulitan": 2.78}, {"kampus": "ITS", "n": 2, "avg_frekuensi": 3.5, "avg_kesulitan": 3.5}, {"kampus": "PENS", "n": 2, "avg_frekuensi": 2.5, "avg_kesulitan": 2.5}, {"kampus": "Universitas Negeri Malang", "n": 2, "avg_frekuensi": 4.5, "avg_kesulitan": 3.5}, {"kampus": "Binus University", "n": 1, "avg_frekuensi": 3.0, "avg_kesulitan": 3.0}, {"kampus": "Telkom University", "n": 1, "avg_frekuensi": 2.0, "avg_kesulitan": 2.0}, {"kampus": "UMM", "n": 1, "avg_frekuensi": 1.0, "avg_kesulitan": 1.0}]}, "data": [{"no": 1, "nama": "R*** B***", "kampus": "Binus University", "jenis": "Swasta", "semester": 1, "sumber": ["Grup WA angkatan", "Teman", "Instagram umum/lomba"], "frekuensi": 3, "info": "Lomba", "penyebab": ["Chat tenggelam", "Notifikasi dimatikan"], "menit": "< 5 menit", "kesulitan": 3}, {"no": 2, "nama": "N*** H*** S***", "kampus": "ITS", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Teman"], "frekuensi": 3, "info": "Lomba", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 3, "nama": "H***", "kampus": "ITS", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Instagram jurusan"], "frekuensi": 4, "info": "Lomba", "penyebab": ["Chat tenggelam", "Info telat datang", "Info tersebar di banyak platform"], "menit": "5–15 menit", "kesulitan": 4}, {"no": 4, "nama": "D***", "kampus": "PENS", "jenis": "Negeri", "semester": 7, "sumber": ["Grup WA kelas"], "frekuensi": 1, "info": "Beasiswa", "penyebab": ["Terlalu banyak grup"], "menit": "5–15 menit", "kesulitan": 2}, {"no": 5, "nama": "T***", "kampus": "PENS", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Instagram jurusan", "Teman"], "frekuensi": 4, "info": "Deadline tugas", "penyebab": ["Chat tenggelam", "Info telat datang", "Info tersebar di banyak platform"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 6, "nama": "A***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Grup WA himpunan/UKM", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 2, "info": "Perubahan jadwal", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform", "Info tidak jelas"], "menit": "< 5 menit", "kesulitan": 3}, {"no": 7, "nama": "H*** A*** P*** A***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA himpunan/UKM", "Instagram jurusan"], "frekuensi": 5, "info": "Lomba", "penyebab": ["Info telat datang", "Info tersebar di banyak platform"], "menit": "15–30 menit", "kesulitan": 5}, {"no": 8, "nama": "I*** M***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Teman", "Instagram umum/lomba"], "frekuensi": 2, "info": "Lomba", "penyebab": ["Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform"], "menit": "5–15 menit", "kesulitan": 5}, {"no": 9, "nama": "R***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA angkatan", "Grup WA himpunan/UKM", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 2, "info": "Lomba", "penyebab": ["Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform", "Info tidak jelas"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 10, "nama": "R*** I***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Website kampus"], "frekuensi": 4, "info": "Lomba", "penyebab": ["Info telat datang", "Info tersebar di banyak platform", "Info tidak jelas"], "menit": "5–15 menit", "kesulitan": 5}, {"no": 11, "nama": "T***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Dosen"], "frekuensi": 3, "info": "Deadline tugas", "penyebab": ["Chat tenggelam"], "menit": "< 5 menit", "kesulitan": 3}, {"no": 12, "nama": "A*** I*** E***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 4, "info": "Beasiswa", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang"], "menit": "5–15 menit", "kesulitan": 4}, {"no": 13, "nama": "C*** P***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA angkatan", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 4, "info": "Perubahan jadwal", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Notifikasi dimatikan"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 14, "nama": "B*** K***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Instagram jurusan", "Teman"], "frekuensi": 1, "info": "Deadline tugas", "penyebab": ["Chat tenggelam", "Terlalu banyak grup"], "menit": "5–15 menit", "kesulitan": 1}, {"no": 15, "nama": "A***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA angkatan", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 1, "info": "Beasiswa", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Notifikasi dimatikan"], "menit": "15–30 menit", "kesulitan": 1}, {"no": 16, "nama": "M***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Dosen"], "frekuensi": 3, "info": "Beasiswa", "penyebab": ["Chat tenggelam", "Terlalu banyak grup"], "menit": "15–30 menit", "kesulitan": 2}, {"no": 17, "nama": "L***", "kampus": "Polinema", "jenis": "Negeri", "semester": 1, "sumber": ["Teman"], "frekuensi": 1, "info": "Deadline tugas", "penyebab": ["Chat tenggelam"], "menit": "5–15 menit", "kesulitan": 1}, {"no": 18, "nama": "A*** R*** J***", "kampus": "Telkom University", "jenis": "Swasta", "semester": 1, "sumber": ["Grup WA kelas"], "frekuensi": 2, "info": "Deadline tugas", "penyebab": ["Salah lihat deadline"], "menit": "< 5 menit", "kesulitan": 2}, {"no": 19, "nama": "A***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Instagram jurusan", "Teman"], "frekuensi": 2, "info": "Perubahan jadwal", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang"], "menit": "15–30 menit", "kesulitan": 2}, {"no": 20, "nama": "N***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Grup WA himpunan/UKM", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 3, "info": "Lomba", "penyebab": ["Info telat datang", "Info tersebar di banyak platform"], "menit": "< 5 menit", "kesulitan": 3}, {"no": 21, "nama": "V***", "kampus": "UMM", "jenis": "Swasta", "semester": 1, "sumber": ["Teman"], "frekuensi": 1, "info": "Kegiatan organisasi", "penyebab": ["Terlalu banyak grup"], "menit": "> 30 menit", "kesulitan": 1}, {"no": 22, "nama": "N***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA angkatan", "Grup WA himpunan/UKM"], "frekuensi": 4, "info": "Beasiswa", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 23, "nama": "W*** A***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA angkatan", "Lainnya"], "frekuensi": 4, "info": "Beasiswa", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform", "Notifikasi dimatikan", "Info tidak jelas"], "menit": "5–15 menit", "kesulitan": 4}, {"no": 24, "nama": "H***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Website kampus", "Teman", "Dosen"], "frekuensi": 5, "info": "Perubahan jadwal", "penyebab": ["Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform", "Notifikasi dimatikan", "Info tidak jelas"], "menit": "< 5 menit", "kesulitan": 2}, {"no": 25, "nama": "M*** A***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 3, "sumber": ["Grup WA angkatan", "Grup WA himpunan/UKM", "Website kampus"], "frekuensi": 3, "info": "Lomba", "penyebab": ["Chat tenggelam"], "menit": "< 5 menit", "kesulitan": 1}, {"no": 26, "nama": "M***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 3, "sumber": ["Instagram jurusan"], "frekuensi": 3, "info": "Deadline tugas", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Info telat datang", "Info tersebar di banyak platform"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 27, "nama": "A***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 3, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Grup WA himpunan/UKM", "Instagram jurusan", "Website kampus", "Teman"], "frekuensi": 5, "info": "Perubahan jadwal", "penyebab": ["Chat tenggelam", "Info telat datang", "Info tersebar di banyak platform"], "menit": "15–30 menit", "kesulitan": 4}, {"no": 28, "nama": "N***", "kampus": "Universitas Brawijaya", "jenis": "Negeri", "semester": 3, "sumber": ["Grup WA kelas", "Grup WA angkatan", "Grup WA himpunan/UKM", "Instagram jurusan", "Website kampus"], "frekuensi": 2, "info": "Kegiatan organisasi", "penyebab": ["Chat tenggelam", "Info telat datang", "Info tersebar di banyak platform"], "menit": "5–15 menit", "kesulitan": 3}, {"no": 29, "nama": "I*** P*** N***", "kampus": "Universitas Negeri Malang", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Instagram jurusan", "Teman", "Lainnya"], "frekuensi": 4, "info": "Deadline tugas", "penyebab": ["Chat tenggelam", "Info tidak jelas"], "menit": "5–15 menit", "kesulitan": 4}, {"no": 30, "nama": "M***", "kampus": "Universitas Negeri Malang", "jenis": "Negeri", "semester": 1, "sumber": ["Grup WA kelas", "Grup WA angkatan"], "frekuensi": 5, "info": "Deadline tugas", "penyebab": ["Chat tenggelam", "Terlalu banyak grup", "Notifikasi dimatikan"], "menit": "< 5 menit", "kesulitan": 3}]};
+var S = D.stats, ROWS = D.data;
+
+function el(tag, cls, text){
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function fmt(x){ return String(x).replace('.', ','); }
+function pc(x){ return fmt(x) + '%'; }
+function f1(x){ return x.toFixed(1).replace('.', ','); }
+function f2(x){ return x.toFixed(2).replace('.', ','); }
+function sumN(rows){ return rows.reduce(function(a, r){ return a + r.n; }, 0); }
+function pct(n){ return Math.round(n / S.N * 1000) / 10; }
+
+var top1 = S.penyebab[0];
+document.getElementById('heroFig').textContent = pc(top1.pct);
+document.getElementById('heroTxt').textContent =
+  top1.label + ' adalah penyebab info terlewat yang paling banyak dipilih: ' + top1.n + ' dari ' + S.N + ' responden.';
+
+var freqHighN = sumN(S.frekuensi.filter(function(r){ return +r.label >= 4; }));
+var scrollN = sumN(S.menit.filter(function(r){ return r.label.indexOf('< 5') !== 0; }));
+var tiles = [
+  ['Responden', String(S.N), 'dari ' + S.kampus.length + ' kampus'],
+  ['Rata-rata ketinggalan info', f1(S.avg_frekuensi), 'skor dari 5'],
+  ['Skor ketinggalan 4–5', pc(pct(freqHighN)), freqHighN + ' responden'],
+  ['Scroll chat 5 menit atau lebih', pc(pct(scrollN)), scrollN + ' responden, per 1 info']
+];
+var tilesEl = document.getElementById('tiles');
+tiles.forEach(function(t){
+  var d = el('div', 'tile');
+  d.append(el('div', 'kl', t[0]), el('div', 'kv', t[1]), el('div', 'kn', t[2]));
+  tilesEl.append(d);
+});
+
+function hbars(rows, max){
+  var wrap = el('div', 'hbars');
+  rows.forEach(function(r){
+    var row = el('div', 'hrow');
+    row.tabIndex = 0;
+    row.setAttribute('role', 'img');
+    row.setAttribute('aria-label', r.label + ': ' + pc(r.pct) + ', ' + r.n + ' responden');
+    row.dataset.tipv = pc(r.pct) + ' · ' + r.n + ' responden';
+    row.dataset.tipl = r.label;
+    var track = el('div', 'track');
+    var w = r.pct / max * 100;
+    var bar = el('div', 'bar'); bar.style.width = w + '%';
+    var val = el('div', 'val'); val.style.left = 'calc(' + w + '% + 8px)';
+    val.append(el('b', null, pc(r.pct)), el('span', null, ' (' + r.n + ')'));
+    track.append(bar, val);
+    row.append(el('div', 'hl', r.label), track);
+    wrap.append(row);
+  });
+  return wrap;
+}
+
+function cols(rows, ymax, ticks){
+  var wrap = el('div', 'cwrap');
+  var yax = el('div', 'yax');
+  var plot = el('div', 'cplot');
+  ticks.forEach(function(t){
+    var l = el('span', null, String(t)); l.style.bottom = (t / ymax * 100) + '%'; yax.append(l);
+    var g = el('div', t === 0 ? 'gl z' : 'gl'); g.style.bottom = (t / ymax * 100) + '%'; plot.append(g);
+  });
+  var cc = el('div', 'ccols');
+  cc.style.gridTemplateColumns = 'repeat(' + rows.length + ',1fr)';
+  rows.forEach(function(r){
+    var c = el('div', 'ccol');
+    c.tabIndex = 0;
+    c.setAttribute('role', 'img');
+    c.setAttribute('aria-label', r.label + ': ' + pc(r.pct) + ', ' + r.n + ' responden');
+    c.dataset.tipv = pc(r.pct) + ' · ' + r.n + ' responden';
+    c.dataset.tipl = r.label;
+    var h = r.n / ymax * 100;
+    var bar = el('div', 'cbar'); bar.style.height = h + '%';
+    var v = el('div', 'cval', pc(r.pct)); v.style.bottom = 'calc(' + h + '% + 4px)';
+    c.append(bar, v);
+    cc.append(c);
+  });
+  plot.append(cc);
+  var xax = el('div', 'xax');
+  xax.style.gridTemplateColumns = 'repeat(' + rows.length + ',1fr)';
+  rows.forEach(function(r){
+    var x = el('div', 'xl');
+    x.append(el('span', 'xt', r.label), el('span', 'xn', 'n=' + r.n));
+    xax.append(x);
+  });
+  wrap.append(yax, plot, el('div'), xax);
+  return wrap;
+}
+
+function miniTable(groups){
+  var t = el('table');
+  var hd = el('thead'), hr = el('tr');
+  [['Kategori', ''], ['Persen', 'num'], ['Responden', 'num']].forEach(function(h){
+    var th = el('th', h[1], h[0]); th.scope = 'col'; hr.append(th);
+  });
+  hd.append(hr); t.append(hd);
+  var tb = el('tbody');
+  groups.forEach(function(g){
+    if (g.title){
+      var gr = el('tr'); var gt = el('td', 'dim', g.title); gt.colSpan = 3; gr.append(gt); tb.append(gr);
+    }
+    g.rows.forEach(function(r){
+      var tr = el('tr');
+      tr.append(el('td', null, r.label), el('td', 'num', pc(r.pct)), el('td', 'num', String(r.n)));
+      tb.append(tr);
+    });
+  });
+  t.append(tb);
+  return t;
+}
+
+var semRows = S.semester.map(function(r){ return { label: 'Semester ' + r.label, n: r.n, pct: r.pct }; });
+var CARDS = [
+  { title: 'Responden per kampus', sub: 'Persen dari 30 responden (jumlah responden)', kind: 'h', max: 50,
+    groups: [{ rows: S.kampus }] },
+  { title: 'Profil responden', sub: 'Jenis kampus dan semester, persen (jumlah responden)', kind: 'h', max: 100,
+    groups: [{ title: 'Jenis kampus', rows: S.jenis }, { title: 'Semester', rows: semRows }] },
+  { title: 'Dari mana info didapat', sub: 'Bisa pilih lebih dari satu, persen dari 30 responden', kind: 'h', max: 70,
+    groups: [{ rows: S.sumber }] },
+  { title: 'Info yang paling sering terlewat', sub: 'Satu jawaban per responden', kind: 'h', max: 40,
+    groups: [{ rows: S.info }] },
+  { title: 'Penyebab info terlewat', sub: 'Bisa pilih lebih dari satu, persen dari 30 responden', kind: 'h', max: 80,
+    groups: [{ rows: S.penyebab }] },
+  { title: 'Waktu scroll chat untuk cari 1 info', sub: 'Rata-rata per responden. Sumbu: jumlah responden', kind: 'c', ymax: 20, ticks: [0, 5, 10, 15, 20],
+    groups: [{ rows: S.menit }] },
+  { title: 'Seberapa sering ketinggalan info', sub: 'Skala 1–5, makin tinggi makin sering. Rata-rata ' + f1(S.avg_frekuensi) + '. Sumbu: jumlah responden', kind: 'c', ymax: 16, ticks: [0, 4, 8, 12, 16],
+    groups: [{ rows: S.frekuensi }] },
+  { title: 'Kesulitan mengikuti info yang tersebar', sub: 'Skala 1–5, makin tinggi makin sulit. Rata-rata ' + f2(S.avg_kesulitan) + '. Sumbu: jumlah responden', kind: 'c', ymax: 16, ticks: [0, 4, 8, 12, 16],
+    groups: [{ rows: S.kesulitan }] }
+];
+
+var tip = document.getElementById('tip');
+function hideTip(){ tip.hidden = true; }
+function placeTip(x, y){
+  var w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.max(8, Math.min(x + 14, window.innerWidth - w - 8)) + 'px';
+  tip.style.top = Math.max(8, y - h - 12) + 'px';
+}
+function showTip(m, x, y){
+  tip.replaceChildren(el('div', 'tip-v', m.dataset.tipv), el('div', 'tip-l', m.dataset.tipl));
+  tip.hidden = false;
+  placeTip(x, y);
+}
+
+function buildCard(c, i){
+  var sec = el('section', 'card' + (c.wide ? ' wide' : ''));
+  var head = el('div', 'chead');
+  var tw = el('div');
+  tw.append(el('h2', null, c.title), el('p', 'csub', c.sub));
+  var seg = el('div', 'seg');
+  var bg = el('button', null, 'Grafik'), bt = el('button', null, 'Tabel');
+  bg.type = 'button'; bt.type = 'button';
+  bg.id = 'seg-g-' + i; bt.id = 'seg-t-' + i;
+  seg.append(bg, bt);
+  head.append(tw, seg);
+  var body = el('div');
+  sec.append(head, body);
+  function chart(){
+    if (c.kind === 'c') return cols(c.groups[0].rows, c.ymax, c.ticks);
+    var f = document.createDocumentFragment();
+    c.groups.forEach(function(g){
+      if (g.title) f.append(el('div', 'sh', g.title));
+      f.append(hbars(g.rows, c.max));
+    });
+    var d = el('div'); d.append(f); return d;
+  }
+  function show(mode){
+    body.replaceChildren(mode === 'tabel' ? miniTable(c.groups) : chart());
+    bg.setAttribute('aria-pressed', String(mode !== 'tabel'));
+    bt.setAttribute('aria-pressed', String(mode === 'tabel'));
+    hideTip();
+  }
+  bg.addEventListener('click', function(){ show('grafik'); });
+  bt.addEventListener('click', function(){ show('tabel'); });
+  show('grafik');
+  return sec;
+}
+
+var gridEl = document.getElementById('grid');
+CARDS.forEach(function(c, i){ gridEl.append(buildCard(c, i)); });
+
+function mcell(v){
+  var td = el('td');
+  var d = el('div', 'mcell');
+  var m = el('div', 'meter'), fill = el('i');
+  fill.style.width = (v / 5 * 100) + '%';
+  m.append(fill);
+  d.append(m, el('span', null, f2(v)));
+  td.append(d);
+  return td;
+}
+(function(){
+  var sec = el('section', 'card wide');
+  var head = el('div', 'chead');
+  var tw = el('div');
+  tw.append(el('h2', null, 'Rata-rata skor per kampus'),
+    el('p', 'csub', 'Skor 1–5. Kampus dengan 1–2 responden belum cukup untuk dibandingkan.'));
+  head.append(tw);
+  var wrap = el('div', 'scroll');
+  var t = el('table');
+  var hd = el('thead'), hr = el('tr');
+  [['Kampus', ''], ['Responden', 'num'], ['Ketinggalan info', ''], ['Kesulitan info tersebar', '']].forEach(function(h){
+    var th = el('th', h[1], h[0]); th.scope = 'col'; hr.append(th);
+  });
+  hd.append(hr); t.append(hd);
+  var tb = el('tbody');
+  S.per_kampus.forEach(function(k){
+    var tr = el('tr');
+    tr.append(el('td', 'nm', k.kampus), el('td', k.n < 3 ? 'num dim' : 'num', String(k.n)), mcell(k.avg_frekuensi), mcell(k.avg_kesulitan));
+    tb.append(tr);
+  });
+  t.append(tb); wrap.append(t);
+  sec.append(head, wrap);
+  gridEl.append(sec);
+})();
+
+(function(){
+  var defs = [
+    ['No', 'num', function(r){ return r.no; }],
+    ['Nama (disensor)', 'nm', function(r){ return r.nama; }],
+    ['Kampus', '', function(r){ return r.kampus; }],
+    ['Jenis', '', function(r){ return r.jenis; }],
+    ['Smt', 'num', function(r){ return r.semester; }],
+    ['Sumber info', 'long', function(r){ return r.sumber.join(', '); }],
+    ['Skor ketinggalan', 'num', function(r){ return r.frekuensi; }],
+    ['Info terlewat', '', function(r){ return r.info; }],
+    ['Penyebab', 'long', function(r){ return r.penyebab.join(', '); }],
+    ['Waktu scroll', '', function(r){ return r.menit; }],
+    ['Skor kesulitan', 'num', function(r){ return r.kesulitan; }]
+  ];
+  var t = el('table', 'big');
+  var hd = el('thead'), hr = el('tr');
+  defs.forEach(function(d){ var th = el('th', d[1] === 'num' ? 'num' : '', d[0]); th.scope = 'col'; hr.append(th); });
+  hd.append(hr); t.append(hd);
+  var tb = el('tbody');
+  ROWS.forEach(function(r){
+    var tr = el('tr');
+    defs.forEach(function(d){ tr.append(el('td', d[1], String(d[2](r)))); });
+    tb.append(tr);
+  });
+  t.append(tb);
+  document.getElementById('respTable').append(t);
+})();
+
+document.addEventListener('pointerover', function(e){
+  var m = e.target.closest && e.target.closest('[data-tipv]');
+  if (m) showTip(m, e.clientX, e.clientY); else hideTip();
+});
+document.addEventListener('pointermove', function(e){
+  if (!tip.hidden) placeTip(e.clientX, e.clientY);
+});
+document.addEventListener('pointerout', function(e){
+  var to = e.relatedTarget;
+  if (!to || !(to.closest && to.closest('[data-tipv]'))) hideTip();
+});
+document.addEventListener('focusin', function(e){
+  var m = e.target.closest && e.target.closest('[data-tipv]');
+  if (m){ var r = m.getBoundingClientRect(); showTip(m, r.left + Math.min(r.width, 160) / 2, r.top); }
+});
+document.addEventListener('focusout', hideTip);
+window.addEventListener('scroll', hideTip, { passive: true });
+})();
+</script>
+
+</body></html>
